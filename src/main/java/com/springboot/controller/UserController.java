@@ -1,12 +1,12 @@
 package com.springboot.controller;
 
+import com.springboot.dto.ServiceResponse;
 import com.springboot.dto.UserRequestDTO;
 import com.springboot.dto.UserResponseDTO;
 import com.springboot.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,14 +17,14 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getById(@PathVariable int userId) {
+    public ServiceResponse<UserResponseDTO> getById(@PathVariable int userId) {
         UserResponseDTO userResponseDTO = userService.getById(userId);
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.ACCEPTED);
+        return new ServiceResponse<>(HttpStatus.ACCEPTED, userResponseDTO);
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
+    public ServiceResponse<UserResponseDTO> addUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
         UserResponseDTO userResponseDTO = userService.addUser(userRequestDTO);
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.ACCEPTED);
+        return new ServiceResponse<>(HttpStatus.ACCEPTED, userResponseDTO);
     }
 }

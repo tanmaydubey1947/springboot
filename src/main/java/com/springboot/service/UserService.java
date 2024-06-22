@@ -4,6 +4,7 @@ import com.springboot.dao.UserDAO;
 import com.springboot.dto.UserRequestDTO;
 import com.springboot.dto.UserResponseDTO;
 import com.springboot.entity.UserEntity;
+import com.springboot.exception.UserServiceException;
 import com.springboot.utility.UserMapperUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class UserService {
     }
 
     public UserResponseDTO getById(int id) {
-        UserEntity userEntity = userDAO.findById(id).orElse(new UserEntity()); /// STOPSHIP: 22-Jun-24
+        UserEntity userEntity = userDAO.findById(id)
+                .orElseThrow(() -> new UserServiceException(id + " is not a valid course id..."));
         return UserMapperUtility.userEntityToDTO(userEntity);
     }
 }

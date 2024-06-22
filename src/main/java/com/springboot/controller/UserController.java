@@ -3,6 +3,7 @@ package com.springboot.controller;
 import com.springboot.dto.UserRequestDTO;
 import com.springboot.dto.UserResponseDTO;
 import com.springboot.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody UserRequestDTO userRequestDTO) {
+    public ResponseEntity<?> addUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
         UserResponseDTO userResponseDTO = userService.addUser(userRequestDTO);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.ACCEPTED);
     }

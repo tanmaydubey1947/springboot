@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = CourseTypeValidator.class)
 public @interface IsValidCourse {
 
-    Class<?>[] value() default {};
+    String message () default "Not a valid course";
 
     Class<?>[] groups() default {};
 

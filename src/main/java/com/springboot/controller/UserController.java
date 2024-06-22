@@ -4,6 +4,11 @@ import com.springboot.dto.ServiceResponse;
 import com.springboot.dto.UserRequestDTO;
 import com.springboot.dto.UserResponseDTO;
 import com.springboot.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +25,17 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @Operation(summary = "Get the user detail by userId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User Id Found",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "User Not Found",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+                    })
+    })
     @GetMapping("/{userId}")
     public ServiceResponse<UserResponseDTO> getById(@PathVariable int userId) {
         UserResponseDTO userResponseDTO = userService.getById(userId);

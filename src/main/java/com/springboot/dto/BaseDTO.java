@@ -16,7 +16,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class BaseDTO {
 
     @NotBlank

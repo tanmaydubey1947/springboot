@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class MackBookService {
 
     private static final String BASE_URL = "https://api.restful-api.dev/objects";
+    //Ref: https://restful-api.dev/
 
     @Autowired
     private RestTemplate restTemplate;
@@ -33,7 +34,7 @@ public class MackBookService {
     }
 
     public void delete(String id) {
-        restTemplate.delete(BASE_URL + "/" + id, String.class);
+        restTemplate.delete(BASE_URL + "/" + id);
     }
 
 

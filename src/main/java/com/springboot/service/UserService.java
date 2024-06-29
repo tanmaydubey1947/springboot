@@ -6,14 +6,26 @@ import com.springboot.dto.UserResponseDTO;
 import com.springboot.entity.UserEntity;
 import com.springboot.exception.UserServiceException;
 import com.springboot.utility.UserMapperUtility;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile(value = {"dev","stg","prod"})
 public class UserService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Value("${application.message}")
+    private String envMessage;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("******************* " + envMessage);
+    }
 
     public UserResponseDTO addUser(UserRequestDTO userRequestDTO) {
         UserEntity userEntity = UserMapperUtility.userDTOtoEntity(userRequestDTO);

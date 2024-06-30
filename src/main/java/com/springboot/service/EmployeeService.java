@@ -16,7 +16,7 @@ public class EmployeeService {
 
     public String saveEmployee(Employee employee) {
         int count = employeeDAO.save(employee);
-        return "RECORD INSERTED ! " + count;
+        return "RECORD INSERTED in dB! " + count;
     }
 
     public List<Employee> findAll() {
@@ -41,11 +41,11 @@ public class EmployeeService {
 
     public String update(Employee employee) {
         int count = employeeDAO.update(employee);
-        return "RECORD UPDATED ! " + count;
+        return "RECORD UPDATED in dB! " + count;
     }
 
     public String delete(int id) {
         int count = employeeDAO.delete(id);
-        return "RECORD DELETED ! " + count;
+        return "RECORD DELETED from dB! " + count;
     }
 }

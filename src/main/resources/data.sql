@@ -1,0 +1,1 @@
+INSERT INTO PRODUCT_TABLE (description, name, price, productType) values ("Mortal Game", "Fight Game", 20, "Game");

@@ -58,4 +58,25 @@ public class ProductService {
     }
 
 
+    //OPERATORS
+    public List<Product> getProductsByMultiplePriceValue(List<Double> prices) {
+        return repository.findByPriceIn(prices);
+    }
+
+    public List<Product> getProductsWithinPriceRange(double minPrice, double maxPrice) {
+        return repository.findByPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Product> getProductsWithHigherPrice(double price) {
+        return repository.findByPriceGreaterThan(price);
+    }
+
+    public List<Product> getProductsWithLessPrice(double price) {
+        return repository.findByPriceLessThan(price);
+    }
+
+    public List<Product> getProductsWithLike(String name) {
+        return repository.findByNameContaining(name);
+    }
+
 }

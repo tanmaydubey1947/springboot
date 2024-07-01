@@ -58,4 +58,31 @@ public class ProductController {
     public long deleteProduct(@PathVariable int id) {
         return productService.deleteProduct(id);
     }
+
+
+    //OPERATORS
+    @PostMapping("/search")
+    public List<Product> getProductsByMultiplePriceValue(@RequestBody List<Double> prices) {
+        return productService.getProductsByMultiplePriceValue(prices);
+    }
+
+    @GetMapping("/min/{minPrice}/max/{maxPrice}")
+    public List<Product> getProductsWithinPriceRange(@PathVariable double minPrice, @PathVariable double maxPrice) {
+        return productService.getProductsWithinPriceRange(minPrice, maxPrice);
+    }
+
+    @GetMapping("/high/{price}")
+    public List<Product> getProductsWithHigherPrice(@PathVariable double price) {
+        return productService.getProductsWithHigherPrice(price);
+    }
+
+    @GetMapping("/less/{price}")
+    public List<Product> getProductsWithLessPrice(@PathVariable double price) {
+        return productService.getProductsWithLessPrice(price);
+    }
+
+    @GetMapping("/like/{name}")
+    public List<Product> getProductsWithLike(@PathVariable String name) {
+        return productService.getProductsWithLike(name);
+    }
 }

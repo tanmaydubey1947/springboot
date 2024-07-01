@@ -3,6 +3,9 @@ package com.springboot.service;
 import com.springboot.entity.Product;
 import com.springboot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,6 +80,27 @@ public class ProductService {
 
     public List<Product> getProductsWithLike(String name) {
         return repository.findByNameContaining(name);
+    }
+
+
+    //SORTING
+
+    public List<Product> getProductsWithSorting(String fieldName) {
+        return repository.findAll(Sort.by(Sort.Direction.ASC, fieldName));
+    }
+
+    //PAGINATION
+
+    public Page<Product> getProductsWithPageResponse(int offset, int limit) {
+        // return repository.findAll(PageRequest.of(offset, limit)).getContent();
+        return repository.findAll(PageRequest.of(offset, limit));
+    }
+
+
+    public Page<Product> getProductsWihSortingAndPagination(int offset, int limit, String fieldName) {
+        return repository.findAll(
+                PageRequest.of(offset, limit)
+                        .withSort(Sort.by(fieldName)));
     }
 
 }

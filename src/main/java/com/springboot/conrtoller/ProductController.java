@@ -3,6 +3,9 @@ package com.springboot.conrtoller;
 import com.springboot.entity.Product;
 import com.springboot.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -85,4 +88,25 @@ public class ProductController {
     public List<Product> getProductsWithLike(@PathVariable String name) {
         return productService.getProductsWithLike(name);
     }
+
+    //SORTING
+
+    @GetMapping("/sort/{fieldName}")
+    public List<Product> getProductsWithSorting(@PathVariable String fieldName) {
+        return productService.getProductsWithSorting(fieldName);
+    }
+
+    //PAGINATION
+
+    @GetMapping("/page/{offset}/{limit}")
+    public Page<Product> getProductsWithPageResponse(@PathVariable int offset, @PathVariable int limit) {
+        return productService.getProductsWithPageResponse(offset, limit);
+    }
+
+
+    @GetMapping("/pageWithSort/{fieldName}/{offset}/{limit}")
+    public Page<Product> getProductsWihSortingAndPagination(@PathVariable int offset, @PathVariable int limit, @PathVariable String fieldName) {
+        return productService.getProductsWihSortingAndPagination(offset, limit, fieldName);
+    }
+
 }

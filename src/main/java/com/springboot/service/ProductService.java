@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-@CacheConfig(cacheNames = "products")
+//@CacheConfig(cacheNames = "products")
 public class ProductService {
 
     @Autowired

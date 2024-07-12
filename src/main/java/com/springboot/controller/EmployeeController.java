@@ -24,23 +24,30 @@ public class EmployeeController {
 
 
     @PostMapping("/create")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Employee onboardNewEmployee(@RequestBody Employee employee) {
         return employeeService.createEmployee(employee);
     }
 
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_HR') or hasAuthority('ROLE_MANAGER')")
     public List<Employee> getAll() {
         return employeeService.getEmployees();
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_EMPLOYEE')")
     public Employee getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployee(id);
+    }
+
+
+    @PutMapping("/update")
+    @PreAuthorize("hasAuthority('ROLE_HR')")
+    public Employee updateRole(@RequestBody Employee employee) {
+        return employeeService.changeRoleOfEmployee(employee);
     }
 
 }

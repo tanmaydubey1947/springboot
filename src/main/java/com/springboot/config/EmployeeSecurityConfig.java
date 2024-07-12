@@ -1,17 +1,15 @@
 package com.springboot.config;
 
 
+import com.springboot.service.EmployeeUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -21,22 +19,24 @@ public class EmployeeSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails jack = User.withUsername("jack")
-                .password(passwordEncoder().encode("password"))
-                .roles("ADMIN")
-                .build();
+//        UserDetails jack = User.withUsername("jack")
+//                .password(passwordEncoder().encode("password"))
+//                .roles("HR")
+//                .build();
+//
+//        UserDetails sparrow = User.withUsername("sparrow")
+//                .password(passwordEncoder().encode("password1"))
+//                .roles("EMPLOYEE")
+//                .build();
+//
+//        UserDetails jack_sparrow = User.withUsername("jack_sparrow")
+//                .password(passwordEncoder().encode("password_jack"))
+//                .roles("EMPLOYEE", "HR", "MANAGER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(jack, sparrow, jack_sparrow);
 
-        UserDetails sparrow = User.withUsername("sparrow")
-                .password(passwordEncoder().encode("password1"))
-                .roles("USER")
-                .build();
-
-        UserDetails jack_sparrow = User.withUsername("jack_sparrow")
-                .password(passwordEncoder().encode("password_jack"))
-                .roles("USER", "ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(jack, sparrow, jack_sparrow);
+        return new EmployeeUserDetailsService();
     }
 
 
@@ -44,7 +44,7 @@ public class EmployeeSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/employees/welcome").permitAll()
+                .antMatchers("/employees/welcome", "/employees/create").permitAll()
                 .and()
                 .authorizeHttpRequests().antMatchers("/employees/**")
                 .authenticated().and().httpBasic().and().build();

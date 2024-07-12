@@ -22,4 +22,7 @@ public class Employee {
     private String dept;
     private double salary;
     private String email;
+    private String username;
+    private String password;
+    private String roles; // Ex: ROLE_HR
 }

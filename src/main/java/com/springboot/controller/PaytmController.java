@@ -28,10 +28,14 @@ public class PaytmController {
 
     @PostMapping("/paytm/payment")
     public String doPayment(@RequestBody PaytmRequest<PaymentRequest> paytmRequest) {
-        PaymentRequest paymentRequest = paytmRequest.getPayload();
-        paymentRequest.setTransactionId(UUID.randomUUID().toString());
-        paymentRequest.setTxDate(new Date());
-        kafkaTemplate.send(topicName, paymentRequest);
+        for(int i = 0;i<100000;i++) {
+            PaymentRequest paymentRequest = paytmRequest.getPayload();
+            paymentRequest.setTransactionId(UUID.randomUUID().toString());
+            paymentRequest.setTxDate(new Date());
+            paymentRequest.setSrcAc(UUID.randomUUID().toString());
+            paymentRequest.setDestAc(UUID.randomUUID().toString());
+            kafkaTemplate.send(topicName, paymentRequest);
+        }
         return "payment instantiate successfully...";
     }
 }

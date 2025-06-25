@@ -1,6 +1,7 @@
 Resource: `https://sahilali.medium.com/installing-apache-kafka-on-windows-10-and-running-your-first-kafka-process-ade2b755aa40`
 
 
+Hit below commands from bin/windows path
 
 Start ZooKeeper
 -------------------
@@ -11,6 +12,7 @@ Start a Kafka Broker
 ---------------------
 kafka-server-start ..\..\config\server.properties
 
+Hit below commands from root path
 
 Create a Kafka Topic
 ---------------------
@@ -20,7 +22,7 @@ kafka-topics --bootstrap-server localhost:9092 --topic first_topic --create --pa
 
 Produce Message
 ----------------
-kafka-topics --bootstrap-server localhost:9092 --topic <topic_name> --create --partitions 3 --replication-factor 1
+kafka-console-producer --bootstrap-server localhost:9092 --topic <topic_name>
 
 
 Consume Message
